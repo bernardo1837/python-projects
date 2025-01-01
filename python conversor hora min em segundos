@@ -1,0 +1,16 @@
+def calculadora_aa (valor1, valor2, valor3):
+    hora = valor1 * 3600
+    minuto = valor2 * 60
+    segundo = valor3
+    return hora, minuto, segundo
+
+while True:
+    valor1 = int(input("horas:"))
+    valor2 = int(input("minutos:"))
+    valor3 = int(input("segundos:"))
+
+    hora, minuto, segundo = calculadora_aa(valor1, valor2, valor3)
+
+    resultado = hora + minuto + segundo
+
+    print("o valor é:", resultado)
