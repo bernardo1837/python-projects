@@ -1,0 +1,37 @@
+import socket
+
+try:
+    host = 'localhost'
+    port = 9999
+
+    tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tcp_socket.bind((host, port))
+    tcp_socket.listen(1)
+
+    print("Aguardando conexão...")
+    conn, addr = tcp_socket.accept()
+
+    with conn:
+        print(f'Cliente conectado: {addr}')
+
+        print1 = input("Digite 1 para entrar no chat: ")
+
+        while True:
+            if print1 == "1":
+                print2 = input("Fale no chat: ")
+                conn.send(print2.encode())
+            else:
+                print('Saindo do chat.')
+                break
+
+            data = conn.recv(1024)  # Corrigido para usar conn.recv
+            if not data:
+                print('Erro: sem dados recebidos.')
+                break
+            else:
+                print(f'Mensagem recebida: {data.decode()}')  # Corrigido para usar f-string
+
+except socket.error as e:
+    print(f'Erro no socket: {e}')
+finally:
+    tcp_socket.close()
