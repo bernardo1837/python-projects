@@ -1,0 +1,35 @@
+import socket
+
+try:
+    host = 'localhost'
+    port = 9999
+
+    c_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print("Conectando-se ao servidor...")
+
+   
+    c_socket.connect((host, port))
+
+    print1 = input("Deseja ativar o chat? Digite 1: ")
+
+    while True:
+        data = c_socket.recv(1024)
+
+        if print1 == "1":
+            print2 = input('Fale no chat: ')
+            c_socket.send(print2.encode())  # Corrigido o encode
+        else:
+            print('Erro ao ativar o chat.')
+            break
+
+        if not data:
+            print('Erro ao receber dados.')
+            break
+        else:
+            print(f'Dados recebidos: {data.decode()}')  # Corrigido o decode
+
+except socket.error as e:
+    print(f'Erro no socket: {e}')
+
+finally:
+    c_socket.close()
